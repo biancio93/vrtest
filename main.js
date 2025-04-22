@@ -6,7 +6,7 @@ scene.background = new THREE.Color(0x222222);
 
 // Camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.set(0, 1.6, 3);
+camera.position.set(0, 2.6, 3);
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -61,7 +61,7 @@ const cube = new THREE.Mesh(
   new THREE.BoxGeometry(0.5, 0.5, 0.5),
   new THREE.MeshStandardMaterial({ color: 0x00ff00 })
 );
-cube.position.set(0, 1.5, -2);
+cube.position.set(0, .5, -2);
 scene.add(cube);
 
 // Raycaster e oggetti interattivi

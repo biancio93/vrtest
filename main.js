@@ -115,6 +115,21 @@ function onSelect() {
 
 controller.addEventListener('select', onSelect);
 
+// 1. CREA IL LASER POINTER (una linea rossa)
+const laserGeometry = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 0, -1) // punta in avanti
+  ]);
+  
+  const laserMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
+  
+  const laser = new THREE.Line(laserGeometry, laserMaterial);
+  laser.name = 'laser';
+  laser.scale.z = 10; // lunghezza del laser
+  
+  // 2. AGGIUNGI IL LASER AL CONTROLLER
+  controller.add(laser);
+
 
 /* =================================================
 RENDERER

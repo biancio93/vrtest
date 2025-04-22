@@ -71,6 +71,14 @@ const cube = new THREE.Mesh(
 cube.position.set(0, 1, -2);
 scene.add(cube);
 
+// Cube 2
+const cube_2 = new THREE.Mesh(
+    new THREE.BoxGeometry(0.5, 0.5, 0.5),
+    new THREE.MeshStandardMaterial({ color: 0x00ff00 })
+  );
+  cube_2.position.set(5, 5, -4);
+  scene.add(cube_2);
+
 // Animate
 function animate() {
   cube.rotation.y += 0.01;

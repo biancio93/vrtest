@@ -19,10 +19,41 @@ document.body.appendChild(renderer.domElement);
 // VR Button
 document.body.appendChild(VRButton.createButton(renderer));
 
-// Light
-const light = new THREE.HemisphereLight(0xffffff, 0x444444);
-light.position.set(0, 20, 0);
-scene.add(light);
+// Light 1
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.3); // colore bianco, intensità 0.3
+scene.add(ambientLight);
+
+// Light 2
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 10, 7.5);
+scene.add(directionalLight);
+
+// CREA LUCCIOLE COME PARTICELLE
+const fireflyCount = 100;
+const fireflyGeometry = new THREE.BufferGeometry();
+const fireflyPositions = [];
+
+for (let i = 0; i < fireflyCount; i++) {
+  const x = (Math.random() - 0.5) * 10;
+  const y = Math.random() * 3 + 1;
+  const z = (Math.random() - 0.5) * 10;
+  fireflyPositions.push(x, y, z);
+}
+
+fireflyGeometry.setAttribute(
+  'position',
+  new THREE.Float32BufferAttribute(fireflyPositions, 3)
+);
+
+const fireflyMaterial = new THREE.PointsMaterial({
+  color: 0xffffaa,
+  size: 0.1,
+  transparent: true,
+  opacity: 0.8
+});
+
+const fireflies = new THREE.Points(fireflyGeometry, fireflyMaterial);
+scene.add(fireflies);
 
 // Floor
 const floor = new THREE.Mesh(

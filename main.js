@@ -19,6 +19,7 @@ document.body.appendChild(renderer.domElement);
 // VR Button
 document.body.appendChild(VRButton.createButton(renderer));
 
+
 // Light 1
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.3); // colore bianco, intensità 0.3
 scene.add(ambientLight);
@@ -84,6 +85,40 @@ function animate() {
   cube.rotation.y += 0.01;
   renderer.setAnimationLoop(render);
 }
+
+/* =================================================
+INTERAZIONE
+================================================= */
+
+const raycaster = new THREE.Raycaster();
+const interactiveObjects = [];
+
+interactiveObjects.push(cube);
+
+const controller = renderer.xr.getController(0);
+scene.add(controller);
+
+function onSelect() {
+  const tempMatrix = new THREE.Matrix4();
+  tempMatrix.identity().extractRotation(controller.matrixWorld);
+
+  const direction = new THREE.Vector3(0, 0, -1).applyMatrix4(tempMatrix);
+  const origin = controller.position.clone();
+
+  raycaster.set(origin, direction);
+  const intersects = raycaster.intersectObjects(interactiveObjects);
+
+  if (intersects.length > 0) {
+    intersects[0].object.material.color.set(Math.random() * 0xffffff);
+  }
+}
+
+controller.addEventListener('select', onSelect);
+
+
+/* =================================================
+RENDERER
+================================================= */
 
 function render() {
   renderer.render(scene, camera);
